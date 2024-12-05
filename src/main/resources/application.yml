@@ -1,7 +1,3 @@
-#spring.application.name=Memo
-
-#spring.thymeleaf.cache=false
-
 spring:
     config:
         import: security-variable.yml
@@ -9,13 +5,12 @@ spring:
         static-path-pattern: /static/**
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/memorablegram
+        url: jdbc:mysql://localhost:3306/memo
         username: root
         password: ${mysql.password}
     thymeleaf:
         cache: false
     application:
         name: Memo
-
 mybatis:
     mapper-locations: mappers/*Mapper.xml
