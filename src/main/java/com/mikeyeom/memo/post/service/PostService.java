@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mikeyeom.memo.commom.FileManager;
 import com.mikeyeom.memo.post.domain.Post;
 import com.mikeyeom.memo.post.repository.PostRepository;
 
@@ -20,12 +22,16 @@ public class PostService {
 	public boolean addPost(
 			  int userId
 			, String title
-			, String contents) {
+			, String contents
+			, MultipartFile file) {
+		
+		String imagePath = FileManager.saveFile(userId, file);
 		
 		Post post = Post.builder()
 				.userId(userId)
 				.title(title)
 				.contents(contents)
+				.imagePath(imagePath)
 				.build();
 		
 		try {
