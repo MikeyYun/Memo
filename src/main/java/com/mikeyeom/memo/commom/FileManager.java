@@ -14,6 +14,10 @@ public class FileManager {
 	
 	public static String saveFile(int userId, MultipartFile file) {
 		
+		if(file == null) {
+			return null;
+		}
+		
 		String directoryName = "/" + userId + "_" + System.currentTimeMillis();
 		
 		String directoryPath = File_Upload_Path + directoryName;
@@ -42,6 +46,33 @@ public class FileManager {
 		}
 		
 		return "/images" + directoryName + "/" + file.getOriginalFilename();
+		
+	}
+	
+	public static boolean removeFile(String filePath) {
+		
+		if(filePath == null) {
+			return false;
+		}
+		
+		String fullFilePath = File_Upload_Path + filePath.replace("/images", "");
+		
+		Path path = Paths.get(fullFilePath);
+		
+		Path directoryPath = path.getParent();
+		
+		try {
+			Files.delete(path);
+			Files.delete(directoryPath);
+			
+			return true;
+					
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			
+			return false;
+		}
 		
 	}
 
